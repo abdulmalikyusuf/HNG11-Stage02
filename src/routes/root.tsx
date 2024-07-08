@@ -5,13 +5,13 @@ import Header from "@/components/header";
 
 function RootLayout() {
   return (
-    <>
+    <div className="max-w-[1920px] w-full mx-auto">
       <Header />
       <Outlet />
       <div className="flow-root">
         <Footer />
       </div>
-    </>
+    </div>
   );
 }
 

@@ -23,7 +23,7 @@ const newArrivals = [
 function IndexPage() {
   return (
     <>
-      <div className="flex flex-col lg:flex-row lg:items-center gap-5 lg:gap-24 bg-[#F5F5F5] p-2 lg:px-[100px] py-10 lg:py-13">
+      <div className="flex flex-col lg:flex-row lg:items-center gap-5 lg:gap-24 bg-[#F5F5F5] px-4 md:px-10 lg:13 xl:px-20 2xl:px-24 py-10 lg:py-13">
         <div className="flex flex-col gap-5 lg:gap-24">
           <div className="text-32 lg:text-6xl font-bold uppercase">
             <h2 className="text-black">Elevate Your</h2>
@@ -67,11 +67,11 @@ function IndexPage() {
           </div>
         </div>
         <div className="flex-1">
-          <img src={ChairHero} alt="A chair from pearch website" className="" />
+          <img src={ChairHero} alt="A chair from Perch website" className="" />
         </div>
       </div>
-      <div className="px-4 md:px-10 lg:13 xl:px-20 2xl:px-24 flex flex-col gap-20 mb-28 overflow-clip">
-        <div className="py-[88px]">
+      <div className="px-4 md:px-10 lg:13 xl:px-20 2xl:px-24 flex flex-col gap-20 my-28 overflow-clip">
+        <div className="">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-rows-2 items-stretch gap-6 lg:gap-x-5 lg:gap-y-6">
             <div className="lg:row-span-2">
               <div className="p-5 lg:p-[30px] bg-miscellaneous flex flex-col">
@@ -120,12 +120,10 @@ function IndexPage() {
             </div>
             <div className="p-5 lg:p-[30px] bg-miscellaneous flex items-end justify-between">
               <div className="flex-1 flex flex-col gap-2 lg:gap-3">
-                <h5 className="text-xl lg:text-[28px] font-semibold">
-                  Chesterfield
-                </h5>
+                <h5 className="text-xl lg:text-[28px] font-semibold">Tyley</h5>
                 <Link
                   to=""
-                  className="w-fit text-xs lg:text-base font-medium text-primary border-b border-primary inline-flex items-center gap-1"
+                  className="w-fit whitespace-nowrap text-xs lg:text-base font-medium text-primary border-b border-primary inline-flex items-center gap-1"
                 >
                   Shop Now{" "}
                   <span className="">
@@ -157,7 +155,7 @@ function IndexPage() {
                   </span>
                 </Link>
               </div>
-              <img src={Chair2} alt="" className="" />
+              <img src={Chair2} alt="" className="shrink" />
             </div>
             <div className="p-5 lg:p-[30px] bg-miscellaneous flex items-end justify-between">
               <div className="flex-1 flex flex-col gap-2 lg:gap-3">
@@ -203,15 +201,15 @@ function IndexPage() {
           </div>
         </div>
         <div className="">
-          <h4 className="capitalize text-xl lg:text-32 text-center text-primary font-medium">
+          <h4 className="capitalize text-xl lg:text-32 lg:text-center text-primary font-medium">
             new arrivals
           </h4>
-          <div className="mt-6 lg:mt-[30px] -mr-24">
-            <div className="flex gap-5 ">
+          <div className="mt-4 md:mt-6 lg:mt-[30px] -mr-4 md:-mr-10 lg:13 xl:-mr-20 2xl:-mr-24">
+            <div className="flex gap-5 overflow-x-scroll no-scrollbar">
               {newArrivals.map((chair) => (
                 <div
                   key={chair.name}
-                  className="shrink-0 min-w-[255px] py-10 px-2.5 flex flex-col gap-[30px]"
+                  className="shrink-0 min-w-[255px] py-10px-2.5 flex flex-col gap-[30px]"
                 >
                   <div className="flex min-h-[294px] items-center bg-miscellaneous">
                     <img
@@ -286,13 +284,17 @@ function IndexPage() {
 
         <div className="max-lg:py-6">
           <h4 className="py-1 lg:py-2 capitalize text-xl lg:text-32 lg:text-center text-primary font-medium">
-            pearch chairs
+            Perch chairs
           </h4>
-          <div className="mt-5 lg:mt-[30px] flex gap-5 md:gap-6 lg:gap-10">
+          <div className="mt-5 lg:mt-[30px] flex gap-5 md:gap-6 lg:gap-10 overflow-scroll no-scrollbar">
             {[MoreChairImage1, MoreChairImage2, MoreChairImage3].map(
               (img, i) => (
-                <div key={`product-image-${i}`} className="shrink-0 flex-1">
-                  <img src={img} alt="" className="w-full" />
+                <div key={`product-image-${i}`} className="shrink-0">
+                  <img
+                    src={img}
+                    alt=""
+                    className="w-[266px] h-[182px] md:w-[347px] md:h-[238px]"
+                  />
                 </div>
               )
             )}

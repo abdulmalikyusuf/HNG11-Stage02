@@ -1,7 +1,6 @@
 import { Icons } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import { Input, InputLabel, InputElement } from "@/components/ui/input";
-import { Checkbox } from "@/components/ui/checkbox";
 import { formatPrice } from "@/lib/utils";
 import CartImage from "@/assets/img/new-arrivals/Paste image.png";
 
@@ -40,14 +39,6 @@ function CheckoutPage() {
                   <InputLabel>Zip code</InputLabel>
                   <InputElement variant="contained" placeholder="Zip code" />
                 </Input>
-              </div>
-              <div className="flex items-center-gap-3">
-                <div className="shrink-0">
-                  <Checkbox />
-                </div>
-                <p className="fs-16 text-black-600">
-                  Use a different billing address (optional)
-                </p>
               </div>
             </div>
             <div className="p-6 flex flex-col gap-6 border border-primary rounded-md">

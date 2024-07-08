@@ -45,8 +45,8 @@ function Header() {
             </svg>
           </button>
           <Link to="/" className="py-2">
-            <span className="text-2xl lg:text-[32px] leading-normal text-primary-label font-nico-moji capitalize">
-              pearch
+            <span className="uppercase text-2xl lg:text-[32px] leading-normal text-primary-label font-nico-moji">
+              Perch
             </span>
           </Link>
         </div>
@@ -55,7 +55,7 @@ function Header() {
             "flex justify-center",
             openSidebar
               ? "max-md:fixed inset-0 z-10 py-5 px-4 flex-col gap-12 justify-start w-4/5 bg-white"
-              : ""
+              : "max-md:hidden"
           )}
         >
           <ul className="flex flex-col md:flex-row gap-6 md:gap-10">
@@ -69,7 +69,7 @@ function Header() {
                   <Icons.close className="size-5" />
                 </button>
                 <p className="text-2xl font-nico-moji text-primary-label">
-                  Pearch
+                  Perch
                 </p>
               </div>
             )}
@@ -100,7 +100,7 @@ function Header() {
             ))}
           </ul>
         </div>
-        <div className="flex gap-5 items-center">
+        <div className="flex gap-2 items-center">
           <button type="button" className="hidden md:inline-flex size-7">
             <Icons.search className="" />
           </button>
@@ -125,14 +125,14 @@ function Header() {
         </div>
       </header>
       <div className="mx-4 mt-2.5 mb-6 md:hidden">
-        <div className="flex items-center gap-2 py-1 px-1.5 rounded-full border-[0.5px] border-primary-label">
-          <Icons.search className="size-5" />
+        <div className="flex items-center gap-2 py-2 px-3 rounded-full border-[0.5px] border-primary-label">
+          <Icons.search className="size-4" />
           <input
             type="text"
             name=""
             id=""
             placeholder="Search your favorite perch"
-            className="text-sm text-[rgba(18,_18,_18,_0.50)]"
+            className="text-sm text-[rgba(18,_18,_18,_0.50)] w-full focus:outline-none"
           />
         </div>
       </div>
