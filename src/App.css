@@ -1,3 +1,71 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  body {
+  }
+  input[type="radio"]:checked {
+    accent-color: #905125;
+  }
+}
+
+@layer utilities {
+  .heading-1 {
+    @apply text-[80px] leading-[84px] tracking-[-3px] font-space-grotesk font-medium;
+  }
+  .heading-2 {
+    @apply text-7xl leading-[76px] tracking-[-2px] font-space-grotesk font-medium;
+  }
+  .heading-3 {
+    @apply text-[54px] leading-[58px] tracking-[-1px] font-space-grotesk font-medium;
+  }
+  .heading-4 {
+    @apply text-[40px] leading-[44px] tracking-[-0.4px] font-space-grotesk font-medium;
+  }
+  .heading-5 {
+    @apply text-[34px] leading-[38px] tracking-[-0.6px] font-space-grotesk font-medium;
+  }
+  .heading-6 {
+    @apply text-[28px] leading-[34px] tracking-[-0.6px] font-space-grotesk font-medium;
+  }
+  .heading-7 {
+    @apply text-[20px] leading-[28px] font-space-grotesk font-medium;
+  }
+  .fs-26 {
+    @apply text-[26px] leading-10 font-inter;
+  }
+  .fs-22 {
+    @apply text-[22px] leading-[34px] font-inter;
+  }
+  .fs-20 {
+    @apply text-xl leading-8 font-inter;
+  }
+  .fs-18 {
+    @apply text-lg leading-[30px] font-inter;
+  }
+  .fs-16 {
+    @apply text-base leading-[26px] font-inter;
+  }
+  .fs-14 {
+    @apply text-sm leading-[22px] font-inter;
+  }
+  .fs-12 {
+    @apply text-xs leading-5 font-inter;
+  }
+  .button-xl {
+    @apply text-[26px] leading-[38px] font-medium;
+  }
+  .button-lg {
+    @apply text-[22px] leading-[34px] font-medium;
+  }
+  .button-md {
+    @apply text-lg leading-8 font-medium;
+  }
+  .button-sm {
+    @apply text-base leading-[28px] font-medium;
+  }
+  .button-xs {
+    @apply text-sm leading-6 font-medium;
+  }
+}

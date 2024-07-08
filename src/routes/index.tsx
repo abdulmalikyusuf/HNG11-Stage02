@@ -18,7 +18,7 @@ const newArrivals = [
   { image: NewArrival2, name: "Zefison Chair", price: 350 },
   { image: NewArrival3, name: "Italian Rococo", price: 700 },
   { image: NewArrival4, name: "King Sofa", price: 899 },
-  { image: NewArrival4, name: "King Sofa", price: 899 },
+  { image: Chair3, name: "Chesterfield Sofa", price: 599 },
 ];
 function IndexPage() {
   return (
@@ -211,9 +211,9 @@ function IndexPage() {
               {newArrivals.map((chair) => (
                 <div
                   key={chair.name}
-                  className="shrink-0 w-[255px] py-10 px-2.5 flex flex-col gap-[30px]"
+                  className="shrink-0 min-w-[255px] py-10 px-2.5 flex flex-col gap-[30px]"
                 >
-                  <div className="flex h-[294px] items-center bg-miscellaneous">
+                  <div className="flex min-h-[294px] items-center bg-miscellaneous">
                     <img
                       src={chair.image}
                       alt={`${chair.name} image`}
@@ -286,13 +286,13 @@ function IndexPage() {
 
         <div className="max-lg:py-6">
           <h4 className="py-1 lg:py-2 capitalize text-xl lg:text-32 lg:text-center text-primary font-medium">
-            new arrivals
+            pearch chairs
           </h4>
-          <div className="mt-5 lg:mt-[30px] flex gap-5">
+          <div className="mt-5 lg:mt-[30px] flex gap-5 md:gap-6 lg:gap-10">
             {[MoreChairImage1, MoreChairImage2, MoreChairImage3].map(
               (img, i) => (
-                <div key={`product-image-${i}`} className="shrink-0">
-                  <img src={img} alt="" className="" />
+                <div key={`product-image-${i}`} className="shrink-0 flex-1">
+                  <img src={img} alt="" className="w-full" />
                 </div>
               )
             )}

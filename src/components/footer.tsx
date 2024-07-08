@@ -33,7 +33,7 @@ function Footer() {
       </div>
       <div className="flex flex-col gap-4 lg:items-center">
         <h4 className="py-2 text-32 text-label-primary font-nico-moji">
-          Perch
+          Pearch
         </h4>
         <ul className="flex flex-col lg:flex-row gap-5 text-xl font-medium text-primary-label">
           <li className="">About Us</li>

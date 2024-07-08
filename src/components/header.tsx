@@ -1,9 +1,12 @@
 import { cn } from "@/lib/utils";
 import { Icons } from "@/components/icons";
-import { Link } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { CartButton } from "./cart-button";
+import { useState } from "react";
 
 function Header() {
+  const [openSidebar, setOpenSidebar] = useState(false);
+  const navigate = useNavigate();
   return (
     <>
       <header
@@ -13,7 +16,11 @@ function Header() {
         )}
       >
         <div className="flex items-center justify-center gap-3 md:gap-6">
-          <button type="button" className="md:hidden">
+          <button
+            type="button"
+            className="md:hidden"
+            onClick={() => setOpenSidebar(true)}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="size-[24px] md:size-7"
@@ -45,46 +52,78 @@ function Header() {
             </span>
           </Link>
         </div>
-        <div className="hidden md:flex justify-center">
-          <ul className="flex gap-10">
-            {["Home", "Shop", "Products", "Pages"].map((menu) => (
-              <li key={menu}>
-                <span
-                  className={cn(
-                    "flex items-center justify-center w-fit hover:border-b font-space-grotesk transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none",
-                    "gap-0.5 button-xs",
-                    "text-black-900 hover:text-black-400 disabled:text-black-700"
-                  )}
+        <div
+          className={cn(
+            "flex justify-center",
+            openSidebar
+              ? "max-md:fixed inset-0 z-10 py-5 px-4 flex-col gap-12 justify-start w-4/5 bg-white"
+              : ""
+          )}
+        >
+          <ul className="flex flex-col md:flex-row gap-6 md:gap-10">
+            {openSidebar && (
+              <div className="flex gap-3 items-center">
+                <button
+                  type="button"
+                  className=""
+                  onClick={() => setOpenSidebar(false)}
                 >
-                  {menu}{" "}
-                  <Icons.chevronDown
-                    className="size-[18px] relative top-[1px] transition-transform duration-200 ease-in group-data-[state=open]:-rotate-180"
-                    aria-hidden
-                  />
-                </span>
-              </li>
-            ))}
-
-            {/* <NavigationMenu.Link
-                  className={cn(
-                    "hover:border-b font-space-grotesk transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none",
-                    "gap-0.5 button-xs",
-                    "text-black-900 hover:text-black-400 disabled:text-black-700"
-                  )}
-                  href="https://github.com/radix-ui"
+                  <Icons.close className="size-5" />
+                </button>
+                <p className="text-2xl font-nico-moji text-primary-label">
+                  Pearch
+                </p>
+              </div>
+            )}
+            {[
+              { title: "Home", href: "/" },
+              { title: "Cart", href: "/cart" },
+              { title: "Checkout", href: "/checkout" },
+            ].map((menu) => (
+              <li key={menu.title}>
+                <NavLink
+                  to={menu.href}
+                  className={({ isActive }) =>
+                    cn(
+                      "flex items-center justify-center w-fit hover:border-b font-space-grotesk transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none",
+                      "gap-0.5 button-xs",
+                      "text-primary-label hover:text-primary disabled:text-black-700",
+                      isActive && "text-primary border-b border-primary-label"
+                    )
+                  }
                 >
                   {menu.title}{" "}
-                </NavigationMenu.Link> */}
+                  {/* <Icons.chevronDown
+                    className="size-[18px] relative top-[1px] transition-transform duration-200 ease-in group-data-[state=open]:-rotate-180"
+                    aria-hidden
+                  /> */}
+                </NavLink>
+              </li>
+            ))}
           </ul>
         </div>
         <div className="flex gap-5 items-center">
           <button type="button" className="hidden md:inline-flex size-7">
             <Icons.search className="" />
           </button>
-          <button className="size-7">
+          <Link to="/checkout" className="size-7">
             <Icons.user className="" />
-          </button>
-          <CartButton numOfItems={2} />
+          </Link>
+          {/* <CartButton numOfItems={2} asChild onClick={()=>navigate}/> */}
+          <Link
+            to="/cart"
+            className="inline-flex items-center gap-0.5 w-[50px] h-[26px] sm:h-7"
+          >
+            <Icons.cart className="size-[26px] sm:size-7 text-[var(--icon-colour)]" />
+            <span
+              className={cn(
+                "inline-flex items-center justify-center size-5 rounded-full text-xs leading-[10px] font-inter font-bold",
+                "bg-primary text-white [--icon-colour:var(--black-900)]"
+              )}
+            >
+              2
+            </span>
+          </Link>
         </div>
       </header>
       <div className="mx-4 mt-2.5 mb-6 md:hidden">
