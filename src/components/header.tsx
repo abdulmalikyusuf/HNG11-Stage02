@@ -1,12 +1,10 @@
 import { cn } from "@/lib/utils";
 import { Icons } from "@/components/icons";
-import { Link, NavLink, useNavigate } from "react-router-dom";
-import { CartButton } from "./cart-button";
+import { Link, NavLink } from "react-router-dom";
 import { useState } from "react";
 
 function Header() {
   const [openSidebar, setOpenSidebar] = useState(false);
-  const navigate = useNavigate();
   return (
     <>
       <header
