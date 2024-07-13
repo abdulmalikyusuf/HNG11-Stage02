@@ -1,8 +1,12 @@
 import axios from "axios";
 import { Item } from "@/types";
 
-export const getProducts = async (): Promise<{
+export const getProducts = async (
+  options: Record<string, unknown>
+): Promise<{
   items: Array<Item>;
+  size: number;
+  total: number;
 }> => {
   //   const url = new URL("/api/products");
   //   console.log(url.toString());
@@ -10,6 +14,7 @@ export const getProducts = async (): Promise<{
     organization_id: import.meta.env.VITE_ORGANIZATION_ID,
     Appid: import.meta.env.VITE_APP_ID,
     Apikey: import.meta.env.VITE_API_KEY,
+    ...options,
   };
   // .get(
   //   `/api/products?organization_id=${

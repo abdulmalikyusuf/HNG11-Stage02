@@ -1,18 +1,33 @@
-import { Suspense } from "react";
+import { Suspense, useEffect, useState } from "react";
 
 import { ProductCard } from "@/components/products/product-card";
 import { Icons } from "@/components/icons";
 import { Link } from "@/components/ui/link";
-import { cn } from "@/lib/utils";
+import { arrayRange, cn } from "@/lib/utils";
 import Filter from "@/components/products/filter";
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { getProducts } from "@/queries/product";
+import { queryClient } from "@/App";
+import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
 
 function ProductsPage() {
-  const { isPending, data } = useQuery({
-    queryKey: ["products"],
-    queryFn: getProducts,
+  const [page, setPage] = useState(1);
+
+  const { isPending, data, isPlaceholderData } = useQuery({
+    queryKey: ["products", page],
+    queryFn: () => getProducts({ size: 10, page }),
+    placeholderData: keepPreviousData,
   });
+
+  // Prefetch the next page!
+  useEffect(() => {
+    if (!isPlaceholderData && data?.total > data?.size) {
+      queryClient.prefetchQuery({
+        queryKey: ["projects", page],
+        queryFn: () => getProducts({ size: 10, page }),
+      });
+    }
+  }, [data, isPlaceholderData, page]);
 
   if (isPending) return <p className="">Is Loading</p>;
 
@@ -39,18 +54,24 @@ function ProductsPage() {
         </div>
         <div className="flex-1">
           <div className="py-4 flex flex-col gap-3">
-            <div className="flex items-center justify-between">
+            <div className="flex flex-wrap items-center justify-between gap-y-4">
               <p className="fs-16 text-black-600">134 products</p>
-              <div className="flex gap-8">
-                <Link
-                  size="small"
-                  colour="light"
-                  iconPlacement="right"
-                  icon="filter"
-                  className="md:hidden"
-                >
-                  Filter
-                </Link>
+              <div className="flex flex-wrap gap-y-2 gap-x-8">
+                <Drawer>
+                  <DrawerTrigger className="md:hidden">
+                    <Link
+                      size="small"
+                      colour="light"
+                      iconPlacement="right"
+                      icon="filter"
+                    >
+                      Filter
+                    </Link>
+                  </DrawerTrigger>
+                  <DrawerContent>
+                    <Filter />
+                  </DrawerContent>
+                </Drawer>
                 <Link
                   size="small"
                   colour="light"
@@ -112,14 +133,20 @@ function ProductsPage() {
                     />
                   ))}
               </div>
-              <div className="flex justify-center items-center mt-20">
-                {/* TODO: On mobile the button variant should xSmall */}
-                <button
-                  type="button"
-                  className="rounded-md inline-flex justify-center items-center size-10 text-sm font-medium border border-primary"
-                >
-                  1
-                </button>
+              <div className="flex justify-center gap-4 items-center mt-20">
+                {data
+                  ? arrayRange(1, Math.ceil(data.total / data.size), 1).map(
+                      (num) => (
+                        <button
+                          type="button"
+                          onClick={() => setPage(num)}
+                          className="rounded-md inline-flex justify-center items-center size-10 text-sm font-medium border border-primary"
+                        >
+                          {num}
+                        </button>
+                      )
+                    )
+                  : null}
               </div>
             </div>
           </Suspense>

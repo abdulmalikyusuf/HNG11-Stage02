@@ -1,0 +1,14 @@
+[build]
+  functions = "netlify/functions"
+  publish = "dist"  # Adjust this if your build output directory is different
+
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/proxy/:splat"
+  status = 200
+
+# Redirect all other routes to index.html
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
