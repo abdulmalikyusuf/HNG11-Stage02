@@ -34,7 +34,7 @@ function NewArrival() {
                 </div>
                 <div className="flex flex-col gap-1.5 text-primary-label font-medium">
                   <Link
-                    to={`/products/${product.unique_id}`}
+                    to={`/products/${product.id}`}
                     className="font-semibold hover:underline"
                   >
                     {product.name}

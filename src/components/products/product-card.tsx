@@ -57,7 +57,7 @@ const ProductCard = forwardRef<HTMLDivElement, ProductCardProps>(
                 roundness="sharp"
                 iconRight="arrowRight"
                 onClick={() =>
-                  mutation.mutate({ quantity: 1, uniqueId: product.unique_id })
+                  mutation.mutate({ quantity: 1, uniqueId: product.id })
                 }
               >
                 Add to cart
@@ -114,7 +114,7 @@ const ProductCard = forwardRef<HTMLDivElement, ProductCardProps>(
           <div className="flex flex-col gap-1">
             <Rating size="sm" rating={5} />
             <Link
-              to={`/products/${product.unique_id}`}
+              to={`/products/${product.id}`}
               className="button-sm font-space-grotesk hover:underline focus-visible:underline"
             >
               {product.name}

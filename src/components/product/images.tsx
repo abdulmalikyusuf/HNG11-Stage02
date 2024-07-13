@@ -15,7 +15,7 @@ function Images({
 }) {
   const [currentImageIdx, setCurrentImageIdx] = useState(0);
   return (
-    <div className="flex-1 md:w-[570px] flex flex-col-reverse md:flex-row gap-3 md:gap-5">
+    <div className="flex1 md:w-[570px] flex flex-col-reverse md:flex-row gap-3 md:gap-5">
       <div className="flex md:flex-col justify-center items-center gap-3 md:gap-4">
         <IconBox
           size="small"
@@ -33,7 +33,10 @@ function Images({
           images.map((image, i) => (
             <div
               key={image.url}
-              className={cn(i === currentImageIdx && "border border-black-900")}
+              className={cn(
+                "md:h[102px] w-[77px]",
+                i === currentImageIdx && "border border-black-900"
+              )}
             >
               <div
                 className="flex items-center justify-center"
@@ -70,7 +73,7 @@ function Images({
           <ChevronDown className="h-1 w-2" />
         </IconBox>
       </div>
-      <div className="flex-1 min-h-[457px] w-full h-full md:aspect-square">
+      <div className="flex-1 md:min-h-[457px] max-h-[620px] max-w-540px w-full h-full md:aspect-square">
         {images[currentImageIdx] ? (
           <img
             src={
@@ -80,7 +83,7 @@ function Images({
             }
             alt={productName}
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            className="object-cover h-full"
+            className="object-cover h-full w-full"
             loading="lazy"
           />
         ) : (

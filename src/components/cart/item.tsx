@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 
 import { Link } from "@/components/ui/link";
 import { getProduct } from "@/queries/product";
-import { getImageUrl, getProductCurrentPrice } from "@/lib/utils";
+import { getImageUrl } from "@/lib/utils";
 
 function CartItem({
   id,
@@ -33,19 +33,22 @@ function CartItem({
   });
   useEffect(() => {
     addCost((prev) =>
-      data ? (prev += data.current_price.at(0).NGN.at(0)) : 0
+      data?.current_price
+        ? (prev += data.current_price as unknown as number)
+        : 0
     );
-  }, []);
+  }, [data, addCost]);
 
   if (!data) return null;
+  console.log(data);
 
   return (
     <div className="py-6 col-span-full grid grid-cols-subgrid items-center border-b border-primary">
       <div className="col-span-5 flex items-center gap-4">
-        <div className="w-[77px] h-[102px]">
+        <div className="w[77px] w-36">
           <img
             src={
-              data.photos.length
+              data?.photos?.length
                 ? getImageUrl(data.photos.at(0))
                 : "/images/placeholder.png"
             }
@@ -90,12 +93,12 @@ function CartItem({
       </div>
       <div className="col-span-2 justify-self-center">
         <p className="fs-18">
-          {data && getProductCurrentPrice(data.current_price)}
+          {data && (data.current_price as unknown as number)}
         </p>
       </div>
       <div className="col-span-2 justify-self-end">
         <p className="fs-18 font-semibold">
-          {data && getProductCurrentPrice(data.current_price)}
+          {data && (data.current_price as unknown as number) * quantity}
         </p>
       </div>
     </div>

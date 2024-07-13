@@ -54,12 +54,31 @@ function Page() {
 
   return (
     <>
-      <div className="p-4 md:py-13 md:px-0 md:flex flex-row items-start gap-20 w-fit mx-auto">
+      <div className="p-4 md:py-13 md:px-0 md:flex flex-row justify-center items-start gap-20 wfit mx-auto">
+        <Breadcrumb className="md:hidden mb-4">
+          <BreadcrumbList className="gap-3">
+            <BreadcrumbItem className="gap-1 fs-12 text-black-600">
+              <BreadcrumbLink href="/">Home</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem className="gap-1 fs-12 text-black-600">
+              <BreadcrumbLink href="/products?q=clothing">
+                Products
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem className="gap-1 fs-12">
+              <BreadcrumbLink href={`/products/${params.productId}`}>
+                "{product.name}
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
         <Images images={product.photos} productName={product.name} />
         <div className="md:w-[456px] py-6 md:py-0">
           <div className="flex flex-col gap-4 pb-6">
             <div className="flex flex-col gap-2">
-              <Breadcrumb className="">
+              <Breadcrumb className="max-md:hidden">
                 <BreadcrumbList className="gap-3">
                   <BreadcrumbItem className="gap-1 fs-12 text-black-600">
                     <BreadcrumbLink href="/">Home</BreadcrumbLink>

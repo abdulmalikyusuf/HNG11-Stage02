@@ -24,7 +24,7 @@ export const getProducts = async (
   //   }`
   // )
   const products = await axios
-    .get("/api/products", { params })
+    .get("https://timbu-get-all-products.reavdev.workers.dev", { params })
     .then((res) => res.data);
   return products;
 };
@@ -37,7 +37,9 @@ export const getProduct = async (productId: string): Promise<Item> => {
   };
 
   const product = await axios
-    .get(`/api/products/unique_id/${productId}`, { params })
+    .get(`https://timbu-get-single-product.reavdev.workers.dev/${productId}`, {
+      params,
+    })
     .then((res) => res.data);
   return product;
 };

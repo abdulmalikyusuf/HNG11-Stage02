@@ -55,7 +55,9 @@ function ProductsPage() {
         <div className="flex-1">
           <div className="py-4 flex flex-col gap-3">
             <div className="flex flex-wrap items-center justify-between gap-y-4">
-              <p className="fs-16 text-black-600">134 products</p>
+              <p className="fs-16 text-black-600">
+                {data && data?.items?.length} products
+              </p>
               <div className="flex flex-wrap gap-y-2 gap-x-8">
                 <Drawer>
                   <DrawerTrigger className="md:hidden">
@@ -140,7 +142,11 @@ function ProductsPage() {
                         <button
                           type="button"
                           onClick={() => setPage(num)}
-                          className="rounded-md inline-flex justify-center items-center size-10 text-sm font-medium border border-primary"
+                          className={cn(
+                            "rounded-md inline-flex justify-center items-center size-10 text-sm font-medium border border-primary-label hover:border-primary",
+                            num === page &&
+                              "text-primary font-semibold font-space-grotesk border-2 border-primary"
+                          )}
                         >
                           {num}
                         </button>
