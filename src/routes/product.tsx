@@ -20,6 +20,7 @@ import Images from "@/components/product/images";
 import { getProduct } from "@/queries/product";
 import { queryClient } from "@/App";
 import { postCart } from "@/queries/cart";
+import { formatPrice } from "@/lib/utils";
 
 function Page() {
   const params = useParams();
@@ -104,8 +105,14 @@ function Page() {
               </div>
             </div>
             <div className="flex items-center gap-3">
-              <p className="fs-22 md:fs-26 font-semibold">$86.00</p>
-              <p className="fs-16 line-through text-black-400">$104.00</p>
+              <p className="fs-22 md:fs-26 font-semibold">
+                {formatPrice(product.current_price as unknown as number)}
+              </p>
+              {product.discounted_price && (
+                <p className="fs-16 line-through text-black-400">
+                  {formatPrice(product.discounted_price as unknown as number)}
+                </p>
+              )}
             </div>
             <div className="flex items-center gap-1 md:gap-2 pt-2">
               <Icons.eye className="size-5 md:size-6" />

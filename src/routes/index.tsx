@@ -2,22 +2,20 @@ import { Link } from "react-router-dom";
 
 import ChairHero from "@/assets/img/83417461_Slipper -2 1.png";
 import BannerImage from "@/assets/img/unsplash_348dJPXEFHk.png";
-import MoreChairImage1 from "@/assets/img/unsplash_Kh4tedFdHz4.png";
-import MoreChairImage2 from "@/assets/img/unsplash_L7EwHkq1B2s.png";
-import MoreChairImage3 from "@/assets/img/unsplash_Gh_UjjYoVwk.png";
 import Categories from "@/components/categories";
 import NewArrival from "@/components/new-arrival";
+import PerchChairs from "@/components/perch-chairs";
 
 function IndexPage() {
   return (
     <>
       <div className="flex flex-col lg:flex-row lg:items-center gap-5 lg:gap-24 bg-[#F5F5F5] px-4 md:px-10 lg:13 xl:px-20 2xl:px-24 py-10 lg:py-13">
-        <div className="flex flex-col gap-5 lg:gap-24">
+        <div className="flex flex-col max-lg:items-center max-lg:text-center gap-5 lg:gap-24">
           <div className="text-32 lg:text-6xl font-bold uppercase">
             <h2 className="text-black">Elevate Your</h2>
             <h2 className="text-primary">comfort</h2>
           </div>
-          <div className="font-semibold text-sm lg:text-xl lg:leading-6 flex flex-col gap-[14px] lg:gap-6">
+          <div className="font-semibold text-sm lg:text-xl lg:leading-6 flex flex-col  max-lg:items-center max-lg:text-center gap-[14px] lg:gap-6">
             <p className="">Want comfort and style? Perch is for you.</p>
             <Link
               to="/products"
@@ -120,19 +118,7 @@ function IndexPage() {
           <h4 className="py-1 lg:py-2 capitalize text-xl lg:text-32 lg:text-center text-primary font-medium">
             Perch chairs
           </h4>
-          <div className="mt-5 lg:mt-[30px] flex gap-5 md:gap-6 lg:gap-10 overflow-scroll no-scrollbar">
-            {[MoreChairImage1, MoreChairImage2, MoreChairImage3].map(
-              (img, i) => (
-                <div key={`product-image-${i}`} className="shrink-0">
-                  <img
-                    src={img}
-                    alt=""
-                    className="w-[266px] h-[182px] md:w-[347px] md:h-[238px]"
-                  />
-                </div>
-              )
-            )}
-          </div>
+          <PerchChairs />
           <div className="mt-6 lg:mt-[30px]">
             <Link
               to="/products"
