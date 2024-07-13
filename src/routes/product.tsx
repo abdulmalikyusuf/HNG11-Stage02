@@ -6,8 +6,6 @@ import { Icons } from "@/components/icons";
 import { RatingText } from "@/components/products/rating";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/components/ui/link";
-// import SimilarItems from "@/components/product/similar-items";
-// import MoreDetails from "@/components/product/more-details";
 import {
   Breadcrumb,
   BreadcrumbLink,
@@ -21,6 +19,7 @@ import { getProduct } from "@/queries/product";
 import { queryClient } from "@/App";
 import { postCart } from "@/queries/cart";
 import { formatPrice } from "@/lib/utils";
+import Loading from "@/components/loading";
 
 function Page() {
   const params = useParams();
@@ -50,7 +49,7 @@ function Page() {
       queryClient.invalidateQueries({ queryKey: ["cart"] });
     },
   });
-  if (status === "pending") return <p className="">Is Loading</p>;
+  if (status === "pending") return <Loading />;
   if (status === "error") return <p className="">Erro: Failed to fetch</p>;
 
   return (

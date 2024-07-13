@@ -1,13 +1,14 @@
 import { getImageUrl } from "@/lib/utils";
 import { getProducts } from "@/queries/product";
 import { useQuery } from "@tanstack/react-query";
+import Loading from "@/components/loading";
 
 function PerchChairs() {
   const { data: products, status } = useQuery({
     queryKey: ["products"],
     queryFn: () => getProducts({ size: 6, page: 2 }),
   });
-  if (status === "pending") return <p className="">Loading...</p>;
+  if (status === "pending") return <Loading />;
   return (
     <div className="mt-5 lg:mt-[30px] flex gap-5 md:gap-6 lg:gap-10 overflow-scroll no-scrollbar">
       {products.items.map((product, i) => (
