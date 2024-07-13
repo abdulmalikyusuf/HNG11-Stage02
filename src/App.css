@@ -68,6 +68,9 @@
   .button-xs {
     @apply text-sm leading-6 font-medium;
   }
+}
+
+@layer components {
   /* Hide scrollbar for Chrome, Safari and Opera */
   .no-scrollbar::-webkit-scrollbar {
     display: none;
@@ -76,5 +79,46 @@
   .no-scrollbar {
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
+  }
+  .cols-2 {
+    @apply w-[652px] [--img-height:889px];
+  }
+  .shop-cols-2 {
+    @apply w-[483px] [--img-height:643px];
+  }
+  .cols-3 {
+    @apply w-[424px] [--img-height:565px];
+  }
+  .mobile-cols-1 {
+    @apply w-[343px] [--img-height:456px];
+  }
+  .cols-4 {
+    @apply w-[310px] [--img-height:413px];
+  }
+  .cols-5 {
+    @apply w-[242px] [--img-height:322px];
+  }
+  .shop-cols-3 {
+    @apply w-full min-w-[228px] [--img-height:304px];
+  }
+  .mobile-cols-2 {
+    @apply w-full min-w-[163px] [--img-height:217px];
+  }
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    @media screen and (min-width: 48rem) {
+      grid-template-columns: repeat(
+        auto-fit,
+        minmax(min(var(--width), 100%), 1fr)
+      );
+    }
+  }
+  .category-grid {
+    display: grid;
+    grid-template-columns: repeat(
+      auto-fit,
+      minmax(max(var(--width), 45%), 1fr)
+    );
   }
 }

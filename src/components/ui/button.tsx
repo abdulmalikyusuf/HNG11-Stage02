@@ -6,13 +6,9 @@ import { cn } from "@/lib/utils";
 import { Icons, type Icon as IconType } from "@/components/icons";
 
 const buttonVariants = cva(
-  "w-fit inline-flex items-center justify-center whitespace-nowrap font-space-grotesk transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none",
+  "w-fit inline-flex items-center justify-center whitespace-nowrap bg-primary text-white font-space-grotesk transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none",
   {
     variants: {
-      fill: {
-        solid: "bg-current",
-        outline: "border-2 border-current !bg-transparent [--l-hover-gap:6px]",
-      },
       size: {
         xLarge:
           "gap-2 px-14 py-5 hover:pt-[15px] hover:pb-[23px] button-xl [--icon-size:32px]",
@@ -25,11 +21,6 @@ const buttonVariants = cva(
         xSmall:
           "gap-0.5 px-5 py-2 hover:pt-1.5 hover:pb-2.5 button-xs [--icon-size:18px]",
       },
-      colour: {
-        light:
-          "bg-black-900 text-white disabled:bg-black-100 disabled:text-black-300 disabled:border-black-200",
-        dark: "bg-white text-black-900 disabled:bg-black-800 disabled:text-black-700",
-      },
       roundness: {
         pill: "rounded-full",
         rounded: "rounded-md",
@@ -37,9 +28,7 @@ const buttonVariants = cva(
       },
     },
     defaultVariants: {
-      fill: "solid",
       size: "medium",
-      colour: "light",
       roundness: "pill",
     },
   }
@@ -58,9 +47,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     {
       className,
       size,
-      colour,
       roundness,
-      fill,
       asChild = false,
       iconLeft,
       iconRight,
@@ -73,10 +60,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     const IconRight = iconRight && (Icons[iconRight] as IconType);
     return (
       <Comp
-        className={cn(
-          buttonVariants({ fill, size, roundness, colour }),
-          className
-        )}
+        className={cn(buttonVariants({ size, roundness }), className)}
         ref={ref}
         {...props}
       >

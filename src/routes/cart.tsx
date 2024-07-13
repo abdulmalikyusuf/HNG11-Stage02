@@ -1,12 +1,19 @@
 import { Link as RRDLink } from "react-router-dom";
+import { useLiveQuery } from "dexie-react-hooks";
 
 import { Icons } from "@/components/icons";
 import { formatPrice } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/components/ui/link";
-import CartImage from "@/assets/img/new-arrivals/Paste image.png";
+import db from "@/lib/db";
+import CartItem from "@/components/cart/item";
+import { useState } from "react";
 
 function Cart() {
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [shippingFee, setShippingFee] = useState(0.0);
+  const cartItems = useLiveQuery(() => db.cartItem.toArray());
+
   return (
     <>
       <div className="px-4 py-8 md:py-13 md:px-0 flex justify-center">
@@ -34,49 +41,15 @@ function Cart() {
               <p className="button-sm col-span-2">Subtotal</p>
             </div>
           </div>
-          <div className="py-6 col-span-full grid grid-cols-subgrid items-center border-b border-primary">
-            <div className="col-span-5 flex items-center gap-4">
-              <div className="w-[77px] h-[102px]">
-                <img src={CartImage} alt="" className="" />
-              </div>
-              <div className="flex flex-col gap-2 flex-1">
-                <p className="fs-14 font-semibold">Zefison Chair</p>
-                <p className="fs-12 text-black-600">Color: Brown</p>
-                <Link
-                  size="xSmall"
-                  colour="light"
-                  icon="close"
-                  iconBefore="trashCan"
-                  className="[&_span]:text-black-600 first:text-black-600"
-                >
-                  Remove
-                </Link>
-              </div>
-            </div>
-            <div className="col-span-3 justify-self-center">
-              <div className="py-1.5 px-2 w-fit flex items-center gap-[13px] border border-primary rounded-[4px]">
-                <button
-                  type="button"
-                  className="flex items-center justify-center"
-                >
-                  <Icons.minus className="stroke-[1.25px] size-4" />
-                </button>
-                <p className="fs-12 font-semibold">1</p>
-                <button
-                  type="button"
-                  className="flex items-center justify-center"
-                >
-                  <Icons.plus className="stroke-[1.25px] size-4" />
-                </button>
-              </div>
-            </div>
-            <div className="col-span-2 justify-self-center">
-              <p className="fs-18">$350</p>
-            </div>
-            <div className="col-span-2 justify-self-end">
-              <p className="fs-18 font-semibold">$350</p>
-            </div>
-          </div>
+          {cartItems &&
+            cartItems.map((item) => (
+              <CartItem
+                key={item.uniqueId}
+                id={item.uniqueId}
+                quan={item.quantity}
+                addCost={setTotalPrice}
+              />
+            ))}
         </div>
       </div>
       <div className="flex justify-center p-4 md:p-13">
@@ -118,13 +91,19 @@ function Cart() {
                             <input
                               type="radio"
                               name="shippingProvider"
-                              checked
+                              value={shippingMethod.price}
+                              checked={shippingFee === shippingMethod.price}
+                              onChange={(v) => {
+                                setShippingFee(
+                                  v.target.value as unknown as number
+                                );
+                              }}
                               className="size-[18px] before:absolute before:inset-0 "
                             />
                             <p className="fs-14">{shippingMethod.title}</p>
                           </div>
                           <p className="fs-14">
-                            {formatPrice(shippingMethod.price, "USD")}
+                            {formatPrice(shippingMethod.price, "NGN")}
                           </p>
                         </div>
                       </div>
@@ -135,19 +114,21 @@ function Cart() {
                       <Icons.coupon className="" />
                       <span className="">Subtotal</span>
                     </p>
-                    <p className="fs-14 md:fs-16 font-semibold">$160.00</p>
+                    <p className="fs-14 md:fs-16 font-semibold">
+                      ${totalPrice}
+                    </p>
                   </div>
                   <div className="py-[13px] flex justify-between items-center">
                     <p className="fs-16 md:fs-18 font-semibold">Total</p>
-                    <p className="fs-16 md:fs-18 font-semibold">$160.00</p>
+                    <p className="fs-16 md:fs-18 font-semibold">
+                      ${totalPrice + shippingFee}
+                    </p>
                   </div>
                 </div>
 
                 <RRDLink to="/checkout">
                   <Button
                     size="medium"
-                    fill="solid"
-                    colour="light"
                     roundness="rounded"
                     iconRight="arrowRight"
                     className="w-full bg-primary"

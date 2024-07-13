@@ -17,10 +17,10 @@ export default {
       },
       colors: {
         primary: {
-          DEFAULT: "#905125",
-          label: "#121212",
+          DEFAULT: "hsl(var(--primary))",
+          label: "hsl(var(--primary-label))",
         },
-        miscellaneous: "#F5F5F5",
+        miscellaneous: "hsl(var(--miscellaneous))",
         black: {
           900: "hsl(var(--black-900))",
           800: "var(--black-800)",

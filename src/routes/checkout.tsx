@@ -98,8 +98,6 @@ function CheckoutPage() {
               <div className="mt-4">
                 <Button
                   size="large"
-                  fill="solid"
-                  colour="light"
                   roundness="rounded"
                   iconRight="arrowRight"
                   className="w-full bg-primary"

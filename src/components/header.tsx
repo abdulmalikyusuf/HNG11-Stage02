@@ -2,6 +2,7 @@ import { cn } from "@/lib/utils";
 import { Icons } from "@/components/icons";
 import { Link, NavLink } from "react-router-dom";
 import { useState } from "react";
+import { CartButton } from "./cart-button";
 
 function Header() {
   const [openSidebar, setOpenSidebar] = useState(false);
@@ -75,8 +76,9 @@ function Header() {
             )}
             {[
               { title: "Home", href: "/" },
-              { title: "Cart", href: "/cart" },
-              { title: "Checkout", href: "/checkout" },
+              { title: "Products", href: "/products" },
+              { title: "Pages", href: "/pages" },
+              { title: "About", href: "/about" },
             ].map((menu) => (
               <li key={menu.title}>
                 <NavLink
@@ -91,10 +93,12 @@ function Header() {
                   }
                 >
                   {menu.title}{" "}
-                  {/* <Icons.chevronDown
-                    className="size-[18px] relative top-[1px] transition-transform duration-200 ease-in group-data-[state=open]:-rotate-180"
-                    aria-hidden
-                  /> */}
+                  {menu.title === "Pages" || menu.title === "About" ? (
+                    <Icons.chevronDown
+                      className="size-[18px] relative top-[1px] transition-transform duration-200 ease-in group-data-[state=open]:-rotate-180"
+                      aria-hidden
+                    />
+                  ) : null}
                 </NavLink>
               </li>
             ))}
@@ -107,21 +111,7 @@ function Header() {
           <Link to="/checkout" className="size-7">
             <Icons.user className="" />
           </Link>
-          {/* <CartButton numOfItems={2} asChild onClick={()=>navigate}/> */}
-          <Link
-            to="/cart"
-            className="inline-flex items-center gap-0.5 w-[50px] h-[26px] sm:h-7"
-          >
-            <Icons.cart className="size-[26px] sm:size-7 text-[var(--icon-colour)]" />
-            <span
-              className={cn(
-                "inline-flex items-center justify-center size-5 rounded-full text-xs leading-[10px] font-inter font-bold",
-                "bg-primary text-white [--icon-colour:var(--black-900)]"
-              )}
-            >
-              2
-            </span>
-          </Link>
+          <CartButton />
         </div>
       </header>
       <div className="mx-4 mt-2.5 mb-6 md:hidden">

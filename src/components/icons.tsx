@@ -1,3 +1,6 @@
+import { cn } from "@/lib/utils";
+import { Slot } from "@radix-ui/react-slot";
+import { cva, VariantProps } from "class-variance-authority";
 import {
   Image,
   ArrowLeftRight,
@@ -41,6 +44,7 @@ import {
   ChevronLeft,
   ChevronUp,
 } from "lucide-react";
+import { ButtonHTMLAttributes, forwardRef } from "react";
 
 export type Icon = LucideIcon;
 
@@ -295,3 +299,41 @@ export const Icons = {
     </svg>
   ),
 };
+
+const variants = cva("inline-flex justify-center items-center", {
+  variants: {
+    variant: {
+      sharp: "rounded-none",
+      rounded: "rounded-[var(--b-radius)]",
+      circle: "rounded-full",
+    },
+    size: {
+      large: "[&_>svg]:stroke-[1.5px] [&_>svg]:size-6 size-11 [--b-radius:4px]",
+      medium:
+        "[&_>svg]:stroke-[1.13px] [&_>svg]:size-[18px] size-9 [--b-radius:4px]",
+      small: "[&_>svg]:stroke-1 [&_>svg]:size-4 size-6 [--b-radius:4px]",
+      xSmall:
+        "[&_>svg]:stroke-[0.75px] [&_>svg]:size-[14px] size-5 [--b-radius:3.33px]",
+    },
+  },
+});
+export interface IconBoxProps
+  extends ButtonHTMLAttributes<HTMLButtonElement>,
+    VariantProps<typeof variants> {
+  asChild?: boolean;
+}
+
+const IconBox = forwardRef<HTMLButtonElement, IconBoxProps>(
+  ({ variant, size, asChild = false, className, ...props }, ref) => {
+    const Comp = asChild ? Slot : "button";
+    return (
+      <Comp
+        className={cn(variants({ variant, size }), className)}
+        ref={ref}
+        {...props}
+      />
+    );
+  }
+);
+
+export { IconBox };
