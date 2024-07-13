@@ -20,6 +20,7 @@ import { queryClient } from "@/App";
 import { postCart } from "@/queries/cart";
 import { formatPrice } from "@/lib/utils";
 import Loading from "@/components/loading";
+import ErrorComponent from "@/components/error";
 
 function Page() {
   const params = useParams();
@@ -50,7 +51,7 @@ function Page() {
     },
   });
   if (status === "pending") return <Loading />;
-  if (status === "error") return <p className="">Erro: Failed to fetch</p>;
+  if (status === "error") return <ErrorComponent />;
 
   return (
     <>

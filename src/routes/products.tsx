@@ -9,11 +9,13 @@ import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { getProducts } from "@/queries/product";
 import { queryClient } from "@/App";
 import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
+import Loading from "@/components/loading";
+import ErrorComponent from "@/components/error";
 
 function ProductsPage() {
   const [page, setPage] = useState(1);
 
-  const { isPending, data, isPlaceholderData } = useQuery({
+  const { status, data, isPlaceholderData } = useQuery({
     queryKey: ["products", page],
     queryFn: () => getProducts({ size: 10, page }),
     placeholderData: keepPreviousData,
@@ -29,7 +31,8 @@ function ProductsPage() {
     }
   }, [data, isPlaceholderData, page]);
 
-  if (isPending) return <p className="">Is Loading</p>;
+  if (status === "pending") return <Loading />;
+  if (status === "error") return <ErrorComponent />;
 
   return (
     <>
@@ -117,7 +120,7 @@ function ProductsPage() {
               </div>
             </div>
           </div>
-          <Suspense fallback={<p>Loading...</p>}>
+          <Suspense fallback={<Loading />}>
             <div className="">
               <div
                 className={cn(
