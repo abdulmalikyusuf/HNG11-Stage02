@@ -1,10 +1,12 @@
-import { Icons } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import { Input, InputLabel, InputElement } from "@/components/ui/input";
 import { formatPrice } from "@/lib/utils";
-import CartImage from "@/assets/img/new-arrivals/Paste image.png";
+import { useLiveQuery } from "dexie-react-hooks";
+import db from "@/lib/db";
+import CheckoutItem from "@/components/checkout/item";
 
 function CheckoutPage() {
+  const cartItems = useLiveQuery(() => db.cartItem.toArray());
   return (
     <>
       <div className="px-4 py-8 md:py-13 md:px-0 flex justify-center">
@@ -109,26 +111,11 @@ function CheckoutPage() {
           </div>
           <div className="p-4 md:px-6 md:py-4 flex-1 md:flex-none flex flex-col gap-4 md:w-[424px] border border-primary rounded-md">
             <p className="button-lg border-b border-primary">Order summary</p>
-            <div className="py-4 border-b border-primary flex gap-4">
-              <div className="w-[77px] h-[102px]">
-                <img src={CartImage} alt="" className="" />
-              </div>
-              <div className="flex items-end md:items-start justify-between md:gap-4">
-                <div className="flex-1 flex flex-col gap-2">
-                  <p className="fs-14 font-semibold">Zefison Chair</p>
-                  <p className="fs-12 text-black-600">Color: Brown</p>
-                  <button type="button" className="inline-flex items-center">
-                    <Icons.trashCan className="size-5 text-black-600" />
-                    <span className="text-base font-medium capitalize">
-                      remove
-                    </span>
-                  </button>
-                </div>
-                <div className="flex md:flex-col items-center md:items-end gap-2">
-                  <p className="fs-14 font-semibold">$350</p>
-                </div>
-              </div>
-            </div>
+            {cartItems &&
+              cartItems.map((item) => (
+                <CheckoutItem id={item.uniqueId} quan={item.quantity} />
+              ))}
+
             <div className="pb-4 flex flex-col gap-5 md:gap-3">
               {[
                 { title: "Free shipping", price: 0.0 },

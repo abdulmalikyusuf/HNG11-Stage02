@@ -49,7 +49,7 @@ function ProductsPage() {
   }, [data, isPlaceholderData, page, categoryId]);
 
   if (status === "pending") return <Loading />;
-  if (status === "error") return <ErrorComponent />;
+  if (status === "error" || !data.items) return <ErrorComponent />;
   console.log(data);
 
   return (

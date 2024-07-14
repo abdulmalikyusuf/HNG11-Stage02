@@ -51,7 +51,7 @@ function Page() {
     },
   });
   if (status === "pending") return <Loading />;
-  if (status === "error") return <ErrorComponent />;
+  if (status === "error" || !product) return <ErrorComponent />;
 
   return (
     <>
