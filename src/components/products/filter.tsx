@@ -48,26 +48,6 @@ function Filter({
                 ))}
             </ul>
           </div>
-          <div className="">
-            <p className="fs-14 font-semibold text-primary">COLOR</p>
-            <ul className="mt-4 flex flex-col gap-3 fs-14 font-semibold text-black-500 w-fit">
-              {[
-                "modern",
-                "streetwear",
-                "colorful",
-                "patchwork",
-                "bohemian",
-                "vintage",
-              ].map((item) => (
-                <li
-                  key={item}
-                  className="first:text-black-900 first:underline underline-offset-2"
-                >
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
         </div>
       </div>
     </div>

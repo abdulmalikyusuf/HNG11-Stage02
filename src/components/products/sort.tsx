@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { DropdownMenuCheckboxItemProps } from "@radix-ui/react-dropdown-menu";
+import { Dispatch } from "react";
 
 import {
   DropdownMenu,
@@ -11,12 +10,13 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Link } from "@/components/ui/link";
 
-type Checked = DropdownMenuCheckboxItemProps["checked"];
-
-export function Sort() {
-  const [showStatusBar, setShowStatusBar] = useState<Checked>(true);
-  const [showActivityBar, setShowActivityBar] = useState<Checked>(false);
-
+export function Sort({
+  sortOrderReserve,
+  reverseSortOrder,
+}: {
+  sortOrderReserve: boolean;
+  reverseSortOrder: Dispatch<React.SetStateAction<boolean>>;
+}) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -26,22 +26,21 @@ export function Sort() {
           iconPlacement="right"
           icon="chevron-down"
         >
-          Sort by
+          Sort
         </Link>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56 bg-white">
-        <DropdownMenuLabel>Sort By</DropdownMenuLabel>
+        <DropdownMenuLabel>Sort Alphabetically</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuCheckboxItem
-          checked={showStatusBar}
-          onCheckedChange={setShowStatusBar}
+          checked={sortOrderReserve === false}
+          onCheckedChange={() => reverseSortOrder(false)}
         >
           Asc
         </DropdownMenuCheckboxItem>
         <DropdownMenuCheckboxItem
-          checked={showActivityBar}
-          onCheckedChange={setShowActivityBar}
-          disabled
+          checked={sortOrderReserve === true}
+          onCheckedChange={() => reverseSortOrder(true)}
         >
           Desc
         </DropdownMenuCheckboxItem>

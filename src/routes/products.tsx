@@ -16,10 +16,18 @@ import { Sort } from "@/components/products/sort";
 function ProductsPage() {
   const [page, setPage] = useState(1);
   const [categoryId, setCategoryID] = useState<null | string>(null);
+  const [reverseSort, setReverseSort] = useState(false);
 
   const { status, data, isPlaceholderData } = useQuery({
-    queryKey: ["products", page, categoryId],
-    queryFn: () => getProducts({ size: 10, page, category_id: categoryId }),
+    queryKey: ["products", page, categoryId, reverseSort],
+    queryFn: () =>
+      getProducts({
+        size: 10,
+        page,
+        category_id: categoryId,
+        sorting_key: "name",
+        reverse_sort: reverseSort,
+      }),
     placeholderData: keepPreviousData,
   });
 
@@ -27,14 +35,22 @@ function ProductsPage() {
   useEffect(() => {
     if (!isPlaceholderData && data?.total > data?.size) {
       queryClient.prefetchQuery({
-        queryKey: ["projects", page, categoryId],
-        queryFn: () => getProducts({ size: 10, page, category_id: categoryId }),
+        queryKey: ["projects", page, categoryId, reverseSort],
+        queryFn: () =>
+          getProducts({
+            size: 10,
+            page,
+            category_id: categoryId,
+            sorting_key: "name",
+            reverse_sort: reverseSort,
+          }),
       });
     }
   }, [data, isPlaceholderData, page, categoryId]);
 
   if (status === "pending") return <Loading />;
   if (status === "error") return <ErrorComponent />;
+  console.log(data);
 
   return (
     <>
@@ -82,7 +98,10 @@ function ProductsPage() {
                     />
                   </DrawerContent>
                 </Drawer>
-                <Sort />
+                <Sort
+                  sortOrderReserve={reverseSort}
+                  reverseSortOrder={setReverseSort}
+                />
                 <div className="flex h-10 border border-black-200 divide-x divide-black-200">
                   <button
                     type="button"

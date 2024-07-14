@@ -122,7 +122,8 @@ const ProductCard = forwardRef<HTMLDivElement, ProductCardProps>(
             <p className="inline-flex gap-3 fs-14">
               <span className="font-semibold">
                 {/* &#8358; */}
-                {formatPrice(product.current_price.at(0).NGN.at(0), "NGN")}
+                {product.current_price &&
+                  formatPrice(product.current_price.at(0).NGN.at(0), "NGN")}
               </span>
               {product.discounted_price && (
                 <span className="line-through text-black-400">
