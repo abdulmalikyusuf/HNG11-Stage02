@@ -63,9 +63,7 @@ function Page() {
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem className="gap-1 fs-12 text-black-600">
-              <BreadcrumbLink href="/products?q=clothing">
-                Products
-              </BreadcrumbLink>
+              <BreadcrumbLink href="/products">Products</BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem className="gap-1 fs-12">

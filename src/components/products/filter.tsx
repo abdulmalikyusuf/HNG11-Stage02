@@ -1,5 +1,5 @@
-import { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { useSearchParams } from "react-router-dom";
 
 import { getCategories } from "@/queries/categories";
 import Loading from "@/components/loading";
@@ -12,15 +12,12 @@ function Filter({
   handleChange: React.Dispatch<null | string>;
   categoryId: string;
 }) {
+  const [, setSearchParams] = useSearchParams();
+
   const { isPending, data } = useQuery({
     queryKey: ["categories"],
     queryFn: getCategories,
   });
-
-  useEffect(
-    () => data?.items && handleChange(data.items.at(0).id),
-    [data, handleChange]
-  );
 
   if (isPending) return <Loading />;
   return (
@@ -33,6 +30,21 @@ function Filter({
           <div className="">
             <p className="fs-14 font-semibold text-primary">CATEGORIES</p>
             <ul className="mt-4 flex flex-col gap-3 fs-14 font-semibold text-black-500 w-fit">
+              <li
+                className={cn(
+                  "capitalize cursor-pointer hover:text-black-900 hover:underline",
+                  categoryId === null && "text-black-900 underline"
+                )}
+                onClick={() => {
+                  handleChange(null);
+                  setSearchParams((prev) => {
+                    prev.delete("category");
+                    return prev;
+                  });
+                }}
+              >
+                All
+              </li>
               {data &&
                 data.items.map((item) => (
                   <li
@@ -41,7 +53,10 @@ function Filter({
                       "capitalize cursor-pointer hover:text-black-900 hover:underline",
                       item.id === categoryId && "text-black-900 underline"
                     )}
-                    onClick={() => handleChange(item.id)}
+                    onClick={() => {
+                      handleChange(item.id);
+                      setSearchParams({ category: item.name });
+                    }}
                   >
                     {item.name}
                   </li>
