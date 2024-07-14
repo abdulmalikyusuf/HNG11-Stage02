@@ -114,11 +114,18 @@
       );
     }
   }
-  .category-grid {
-    display: grid;
-    grid-template-columns: repeat(
-      auto-fit,
-      minmax(max(var(--width), 45%), 1fr)
-    );
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
   }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loader {
+  @apply border-blue-500;
+  animation: spin 1s linear infinite;
 }

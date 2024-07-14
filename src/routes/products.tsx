@@ -11,13 +11,15 @@ import { queryClient } from "@/App";
 import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
 import Loading from "@/components/loading";
 import ErrorComponent from "@/components/error";
+import { Sort } from "@/components/products/sort";
 
 function ProductsPage() {
   const [page, setPage] = useState(1);
+  const [categoryId, setCategoryID] = useState<null | string>(null);
 
   const { status, data, isPlaceholderData } = useQuery({
-    queryKey: ["products", page],
-    queryFn: () => getProducts({ size: 10, page }),
+    queryKey: ["products", page, categoryId],
+    queryFn: () => getProducts({ size: 10, page, category_id: categoryId }),
     placeholderData: keepPreviousData,
   });
 
@@ -25,11 +27,11 @@ function ProductsPage() {
   useEffect(() => {
     if (!isPlaceholderData && data?.total > data?.size) {
       queryClient.prefetchQuery({
-        queryKey: ["projects", page],
-        queryFn: () => getProducts({ size: 10, page }),
+        queryKey: ["projects", page, categoryId],
+        queryFn: () => getProducts({ size: 10, page, category_id: categoryId }),
       });
     }
-  }, [data, isPlaceholderData, page]);
+  }, [data, isPlaceholderData, page, categoryId]);
 
   if (status === "pending") return <Loading />;
   if (status === "error") return <ErrorComponent />;
@@ -52,7 +54,7 @@ function ProductsPage() {
       <div className="p-13 flex gap-8">
         <div className="hidden md:block relative">
           <div className="sticky top-0">
-            <Filter />
+            <Filter handleChange={setCategoryID} categoryId={categoryId} />
           </div>
         </div>
         <div className="flex-1">
@@ -77,14 +79,7 @@ function ProductsPage() {
                     <Filter />
                   </DrawerContent>
                 </Drawer>
-                <Link
-                  size="small"
-                  colour="light"
-                  iconPlacement="right"
-                  icon="chevron-down"
-                >
-                  Sort by
-                </Link>
+                <Sort />
                 <div className="flex h-10 border border-black-200 divide-x divide-black-200">
                   <button
                     type="button"

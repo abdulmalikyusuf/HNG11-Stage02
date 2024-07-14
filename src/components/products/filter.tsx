@@ -1,12 +1,28 @@
-import { getCategories } from "@/queries/categories";
+import { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 
-function Filter() {
+import { getCategories } from "@/queries/categories";
+import Loading from "@/components/loading";
+import { cn } from "@/lib/utils";
+
+function Filter({
+  handleChange,
+  categoryId,
+}: {
+  handleChange: React.Dispatch<null | string>;
+  categoryId: string;
+}) {
   const { isPending, data } = useQuery({
     queryKey: ["categories"],
     queryFn: getCategories,
   });
-  if (isPending) return <p className="">Loading Categories...</p>;
+
+  useEffect(
+    () => data?.items && handleChange(data.items.at(0).id),
+    [data, handleChange]
+  );
+
+  if (isPending) return <Loading />;
   return (
     <div className="px-4 py-6 md:p-6 w-[310px]">
       <div className="flex flex-col gap-8">
@@ -21,7 +37,11 @@ function Filter() {
                 data.items.map((item) => (
                   <li
                     key={item.name}
-                    className="capitalize hover:text-black-900 hover:underline"
+                    className={cn(
+                      "capitalize cursor-pointer hover:text-black-900 hover:underline",
+                      item.id === categoryId && "text-black-900 underline"
+                    )}
+                    onClick={() => handleChange(item.id)}
                   >
                     {item.name}
                   </li>

@@ -1,15 +1,10 @@
-import { Dimmer, Loader, Image, Segment } from "semantic-ui-react";
+function LoadingSpinner() {
+  return (
+    <div className="flex flex-col items-center justify-center h-screen">
+      <div className="loader ease-linear rounded-full border-8 border-t-8 border-gray-200 h-32 w-32 mb-4"></div>
+      <p className="text-lg text-gray-700">Loading</p>
+    </div>
+  );
+}
 
-const LoaderExampleText = () => (
-  <div className="flex items-center justify-center h-screen">
-    <Segment>
-      <Dimmer active>
-        <Loader>Loading</Loader>
-      </Dimmer>
-
-      <Image src="https://react.semantic-ui.com/images/wireframe/short-paragraph.png" />
-    </Segment>
-  </div>
-);
-
-export default LoaderExampleText;
+export default LoadingSpinner;
