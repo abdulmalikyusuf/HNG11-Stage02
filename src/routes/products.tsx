@@ -76,7 +76,10 @@ function ProductsPage() {
                     </Link>
                   </DrawerTrigger>
                   <DrawerContent>
-                    <Filter />
+                    <Filter
+                      handleChange={setCategoryID}
+                      categoryId={categoryId}
+                    />
                   </DrawerContent>
                 </Drawer>
                 <Sort />
