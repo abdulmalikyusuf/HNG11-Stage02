@@ -4,6 +4,7 @@ import { useSearchParams } from "react-router-dom";
 import { getCategories } from "@/queries/categories";
 import Loading from "@/components/loading";
 import { cn } from "@/lib/utils";
+import ErrorComponent from "@/components/error";
 
 function Filter({
   handleChange,
@@ -14,12 +15,14 @@ function Filter({
 }) {
   const [, setSearchParams] = useSearchParams();
 
-  const { isPending, data } = useQuery({
+  const { status, data } = useQuery({
     queryKey: ["categories"],
     queryFn: getCategories,
   });
 
-  if (isPending) return <Loading />;
+  if (status === "pending") return <Loading />;
+  if (status === "error" || !data) return <ErrorComponent />;
+
   return (
     <div className="px-4 py-6 md:p-6 w-[310px]">
       <div className="flex flex-col gap-8">
