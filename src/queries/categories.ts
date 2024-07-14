@@ -10,7 +10,7 @@ export const getCategories = async (): Promise<{
     Apikey: import.meta.env.VITE_API_KEY,
   };
   const categories = await axios
-    .get("/api/categories", { params })
+    .get("https://timbu-get-all-categories.reavdev.workers.dev", { params })
     .then((res) => res.data);
   return categories;
 };
