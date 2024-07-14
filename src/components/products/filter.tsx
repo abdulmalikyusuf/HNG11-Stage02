@@ -48,22 +48,23 @@ function Filter({
               >
                 All
               </li>
-              {data &&
-                data.items.map((item) => (
-                  <li
-                    key={item.name}
-                    className={cn(
-                      "capitalize cursor-pointer hover:text-black-900 hover:underline",
-                      item.id === categoryId && "text-black-900 underline"
-                    )}
-                    onClick={() => {
-                      handleChange(item.id);
-                      setSearchParams({ category: item.name });
-                    }}
-                  >
-                    {item.name}
-                  </li>
-                ))}
+              {data?.items
+                ? data.items.map((item) => (
+                    <li
+                      key={item.name}
+                      className={cn(
+                        "capitalize cursor-pointer hover:text-black-900 hover:underline",
+                        item.id === categoryId && "text-black-900 underline"
+                      )}
+                      onClick={() => {
+                        handleChange(item.id);
+                        setSearchParams({ category: item.name });
+                      }}
+                    >
+                      {item.name}
+                    </li>
+                  ))
+                : null}
             </ul>
           </div>
         </div>
