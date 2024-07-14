@@ -41,8 +41,6 @@ const ProductCard = forwardRef<HTMLDivElement, ProductCardProps>(
       },
     });
 
-    console.log(product);
-
     return (
       <div
         ref={ref}

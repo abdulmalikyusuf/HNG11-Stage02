@@ -12,6 +12,7 @@ import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
 import Loading from "@/components/loading";
 import ErrorComponent from "@/components/error";
 import { Sort } from "@/components/products/sort";
+import ProductCountDisplay from "@/components/products/count-display";
 
 function ProductsPage() {
   const [page, setPage] = useState(1);
@@ -50,7 +51,6 @@ function ProductsPage() {
 
   if (status === "pending") return <Loading />;
   if (status === "error" || !data.items) return <ErrorComponent />;
-  console.log(data);
 
   return (
     <>
@@ -76,12 +76,14 @@ function ProductsPage() {
         <div className="flex-1">
           <div className="py-4 flex flex-col gap-3">
             <div className="flex flex-wrap items-center justify-between gap-y-4">
-              <p className="fs-16 text-black-600">
-                {data && data?.items?.length} products
-              </p>
+              <ProductCountDisplay
+                page={page}
+                size={data.size}
+                total={data.total}
+              />
               <div className="flex flex-wrap gap-y-2 gap-x-8">
                 <Drawer>
-                  <DrawerTrigger className="md:hidden">
+                  <DrawerTrigger className="md:hidden" asChild>
                     <Link
                       size="small"
                       colour="light"
@@ -160,6 +162,7 @@ function ProductsPage() {
                   ? arrayRange(1, Math.ceil(data.total / data.size), 1).map(
                       (num) => (
                         <button
+                          key={num}
                           type="button"
                           onClick={() => setPage(num)}
                           className={cn(
